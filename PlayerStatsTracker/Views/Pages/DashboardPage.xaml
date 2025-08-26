@@ -16,204 +16,301 @@
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="16" Orientation="Vertical">
+    <Grid>
 
-            <!-- Header -->
-            <Grid Margin="0,0,0,12">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <!-- título -->
-                    <ColumnDefinition Width="Auto"/>
-                    <!-- badge -->
-                    <ColumnDefinition Width="*"/>
-                    <!-- espaçador -->
-                    <ColumnDefinition Width="Auto"/>
-                    <!-- rank à direita -->
-                </Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0"
-                           Text="Game Stats Tracker"
-                           FontSize="22" FontWeight="Bold"/>
+        <StackPanel
+            Grid.Column="0"
+            Margin="16"
+            Orientation="Vertical">
+            <DataGrid
+                MinHeight="260"
+                Margin="0"
+                AutoGenerateColumns="False"
+                CanUserAddRows="False"
+                GridLinesVisibility="None"
+                HeadersVisibility="Column"
+                ItemsSource="{Binding ViewModel.Matches}"
+                RowHeaderWidth="0">
 
-                <ui:Badge Grid.Column="1"
-                          Margin="8,0,0,0"
-                          Appearance="Primary"
-                          Content="Preencha as partidas abaixo"/>
-
-                <StackPanel Grid.Column="3">
-                    <!-- fica encostado à direita -->
-                    <TextBlock Text="Rank"
-                               Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                               FontSize="12"/>
-                    <TextBlock Text="{Binding ViewModel.Rank}"
-                               Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                               FontSize="12"/>
-                </StackPanel>
-            </Grid>
-
-            <!-- KPIs principais -->
-            <UniformGrid Columns="6" Rows="1" Margin="0,0,0,12">
-
-                <!-- Novo: Points + Rank -->
-                <ui:Card Margin="6">
-                    <StackPanel>
-                        <TextBlock Text="Points"
-                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                   FontSize="12"/>
-                        <TextBlock Text="{Binding ViewModel.Points}"
-                                   FontSize="26" FontWeight="Black"/>
-                    </StackPanel>
-                </ui:Card>
-
-                <ui:Card Margin="6">
-                    <StackPanel Grid.Column="3">
-                        <!-- fica encostado à direita -->
-                        <TextBlock Text="Rank"
-                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                   FontSize="12"/>
-                        <TextBlock Text="{Binding ViewModel.Rank}"
-                                   FontSize="26"
-                                   FontWeight="Black"/>
-                    </StackPanel>
-                </ui:Card>
-
-                <!-- Damage / Round -->
-                <ui:Card Margin="6">
-                    <StackPanel>
-                        <TextBlock Text="Damage / Round"
-                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                   FontSize="12" />
-                        <TextBlock Text="{Binding ViewModel.DamagePerRound, StringFormat={}{0:F1}}"
-                                   FontSize="26" FontWeight="Black"/>
-                    </StackPanel>
-                </ui:Card>
-
-                <!-- K/D -->
-                <ui:Card Margin="6">
-                    <StackPanel>
-                        <TextBlock Text="K/D Ratio"
-                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                   FontSize="12"/>
-                        <TextBlock Text="{Binding ViewModel.Kd, StringFormat={}{0:F2}}"
-                                   FontSize="26" FontWeight="Black"/>
-                    </StackPanel>
-                </ui:Card>
-
-                <!-- HS% -->
-                <ui:Card Margin="6">
-                    <StackPanel>
-                        <TextBlock Text="Headshot %"
-                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                   FontSize="12"/>
-                        <TextBlock Text="{Binding ViewModel.HeadshotPercent, StringFormat={}{0:F1}%}"
-                                   FontSize="26" FontWeight="Black"/>
-                    </StackPanel>
-                </ui:Card>
-
-                <!-- Win% -->
-                <ui:Card Margin="6">
-                    <StackPanel>
-                        <TextBlock Text="Win %"
-                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                   FontSize="12"/>
-                        <TextBlock Text="{Binding ViewModel.WinPercent, StringFormat={}{0:F1}%}"
-                                   FontSize="26" FontWeight="Black"/>
-                    </StackPanel>
-                </ui:Card>
-            </UniformGrid>
-
-            <!-- KPIs secundários -->
-            <UniformGrid Columns="6" Rows="1" Margin="0,0,0,12">
-                <ui:Card Margin="6">
-                    <StackPanel>
-                        <TextBlock Text="Wins" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
-                        <TextBlock Text="{Binding ViewModel.Wins}" FontSize="22" FontWeight="Bold"/>
-                    </StackPanel>
-                </ui:Card>
-
-                <ui:Card Margin="6">
-                    <StackPanel>
-                        <TextBlock Text="Losses" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
-                        <TextBlock Text="{Binding ViewModel.Losses}" FontSize="22" FontWeight="Bold"/>
-                    </StackPanel>
-                </ui:Card>
-
-                <ui:Card Margin="6">
-                    <StackPanel>
-                        <TextBlock Text="KAD Ratio" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
-                        <TextBlock Text="{Binding ViewModel.Kad, StringFormat={}{0:F2}}" FontSize="22" FontWeight="Bold"/>
-                    </StackPanel>
-                </ui:Card>
-
-                <ui:Card Margin="6">
-                    <StackPanel>
-                        <TextBlock Text="Kills / Match" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
-                        <TextBlock Text="{Binding ViewModel.KillsPerMatch, StringFormat={}{0:F1}}" FontSize="22" FontWeight="Bold"/>
-                    </StackPanel>
-                </ui:Card>
-
-                <!-- Se tiver propriedades totais de first kills/deaths, troque os bindings abaixo -->
-                <ui:Card Margin="6">
-                    <StackPanel>
-                        <TextBlock Text="First Kills (total)" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
-                        <TextBlock Text="{Binding ViewModel.FirstKillsTotal}" FontSize="22" FontWeight="Bold"/>
-                    </StackPanel>
-                </ui:Card>
-
-                <ui:Card Margin="6">
-                    <StackPanel>
-                        <TextBlock Text="First Deaths (total)" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"/>
-                        <TextBlock Text="{Binding ViewModel.FirstDeathsTotal}" FontSize="22" FontWeight="Bold"/>
-                    </StackPanel>
-                </ui:Card>
-            </UniformGrid>
-
-            <!-- Controles -->
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                <ui:Button Content="+ Adicionar partida"
-                           Command="{Binding ViewModel.AddRowCommand}"
-                           Margin="0,0,8,0"/>
-                <ui:Button Content="Limpar tudo"
-                           Command="{Binding ViewModel.ClearCommand}"
-                           Appearance="Secondary"/>
-            </StackPanel>
-
-            <!-- Tabela -->
-            <ui:Card>
-                <DataGrid ItemsSource="{Binding ViewModel.Matches}"
-                          AutoGenerateColumns="False"
-                          CanUserAddRows="False"
-                          HeadersVisibility="Column"
-                          GridLinesVisibility="None"
-                          RowHeaderWidth="0"
-                          Margin="0"
-                          MinHeight="260">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Kills" Binding="{Binding Kills, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <DataGridTextColumn Header="Deaths" Binding="{Binding Deaths, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <DataGridTextColumn Header="Assists" Binding="{Binding Assists, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <DataGridTextColumn Header="Headshots" Binding="{Binding Headshots, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <DataGridTextColumn Header="Rounds" Binding="{Binding Rounds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <DataGridTextColumn Header="Dano causado" Binding="{Binding Damage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <DataGridTextColumn Header="Dano recebido" Binding="{Binding DamageTaken, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <DataGridCheckBoxColumn Header="Win?" Binding="{Binding Win, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <DataGridTextColumn Header="First Kills" Binding="{Binding FirstKills, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <DataGridTextColumn Header="First Deaths" Binding="{Binding FirstDeaths, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <DataGridTextColumn Header="5K" Binding="{Binding FiveK, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <DataGridTextColumn Header="Flash Assists" Binding="{Binding FlashAssists, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <DataGridTemplateColumn Header="Remover" Width="80">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ui:Button Content="X"
-                                               Command="{Binding DataContext.ViewModel.RemoveRowCommand, RelativeSource={RelativeSource AncestorType=Page}}"
-                                               CommandParameter="{Binding}" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </ui:Card>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Kills, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Id" />
+                    <DataGridTextColumn Binding="{Binding FlashAssists, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Nome" />
+                </DataGrid.Columns>
+            </DataGrid>
         </StackPanel>
-    </ScrollViewer>
+
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="16" Orientation="Vertical">
+
+                <!--  Header  -->
+                <Grid Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <!--  título  -->
+                        <ColumnDefinition Width="Auto" />
+                        <!--  badge  -->
+                        <ColumnDefinition Width="*" />
+                        <!--  espaçador  -->
+                        <ColumnDefinition Width="Auto" />
+                        <!--  rank à direita  -->
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        FontSize="22"
+                        FontWeight="Bold"
+                        Text="Game Stats Tracker" />
+
+                    <ui:Badge
+                        Grid.Column="1"
+                        Margin="8,0,0,0"
+                        Appearance="Primary"
+                        Content="Preencha as partidas abaixo" />
+
+                    <StackPanel Grid.Column="3">
+                        <!--  fica encostado à direita  -->
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="Rank" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="{Binding ViewModel.Rank}" />
+                    </StackPanel>
+                </Grid>
+
+                <!--  KPIs principais  -->
+                <UniformGrid
+                    Margin="0,0,0,12"
+                    Columns="6"
+                    Rows="1">
+
+                    <!--  Novo: Points + Rank  -->
+                    <ui:Card Margin="6">
+                        <StackPanel>
+                            <TextBlock
+                                FontSize="12"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="Points" />
+                            <TextBlock
+                                FontSize="26"
+                                FontWeight="Black"
+                                Text="{Binding ViewModel.Points}" />
+                        </StackPanel>
+                    </ui:Card>
+
+                    <ui:Card Margin="6">
+                        <StackPanel Grid.Column="3">
+                            <!--  fica encostado à direita  -->
+                            <TextBlock
+                                FontSize="12"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="Rank" />
+                            <TextBlock
+                                FontSize="26"
+                                FontWeight="Black"
+                                Text="{Binding ViewModel.Rank}" />
+                        </StackPanel>
+                    </ui:Card>
+
+                    <!--  Damage / Round  -->
+                    <ui:Card Margin="6">
+                        <StackPanel>
+                            <TextBlock
+                                FontSize="12"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="Damage / Round" />
+                            <TextBlock
+                                FontSize="26"
+                                FontWeight="Black"
+                                Text="{Binding ViewModel.DamagePerRound, StringFormat={}{0:F1}}" />
+                        </StackPanel>
+                    </ui:Card>
+
+                    <!--  K/D  -->
+                    <ui:Card Margin="6">
+                        <StackPanel>
+                            <TextBlock
+                                FontSize="12"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="K/D Ratio" />
+                            <TextBlock
+                                FontSize="26"
+                                FontWeight="Black"
+                                Text="{Binding ViewModel.Kd, StringFormat={}{0:F2}}" />
+                        </StackPanel>
+                    </ui:Card>
+
+                    <!--  HS%  -->
+                    <ui:Card Margin="6">
+                        <StackPanel>
+                            <TextBlock
+                                FontSize="12"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="Headshot %" />
+                            <TextBlock
+                                FontSize="26"
+                                FontWeight="Black"
+                                Text="{Binding ViewModel.HeadshotPercent, StringFormat={}{0:F1}%}" />
+                        </StackPanel>
+                    </ui:Card>
+
+                    <!--  Win%  -->
+                    <ui:Card Margin="6">
+                        <StackPanel>
+                            <TextBlock
+                                FontSize="12"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="Win %" />
+                            <TextBlock
+                                FontSize="26"
+                                FontWeight="Black"
+                                Text="{Binding ViewModel.WinPercent, StringFormat={}{0:F1}%}" />
+                        </StackPanel>
+                    </ui:Card>
+                </UniformGrid>
+
+                <!--  KPIs secundários  -->
+                <UniformGrid
+                    Margin="0,0,0,12"
+                    Columns="6"
+                    Rows="1">
+                    <ui:Card Margin="6">
+                        <StackPanel>
+                            <TextBlock
+                                FontSize="12"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="Wins" />
+                            <TextBlock
+                                FontSize="22"
+                                FontWeight="Bold"
+                                Text="{Binding ViewModel.Wins}" />
+                        </StackPanel>
+                    </ui:Card>
+
+                    <ui:Card Margin="6">
+                        <StackPanel>
+                            <TextBlock
+                                FontSize="12"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="Losses" />
+                            <TextBlock
+                                FontSize="22"
+                                FontWeight="Bold"
+                                Text="{Binding ViewModel.Losses}" />
+                        </StackPanel>
+                    </ui:Card>
+
+                    <ui:Card Margin="6">
+                        <StackPanel>
+                            <TextBlock
+                                FontSize="12"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="KAD Ratio" />
+                            <TextBlock
+                                FontSize="22"
+                                FontWeight="Bold"
+                                Text="{Binding ViewModel.Kad, StringFormat={}{0:F2}}" />
+                        </StackPanel>
+                    </ui:Card>
+
+                    <ui:Card Margin="6">
+                        <StackPanel>
+                            <TextBlock
+                                FontSize="12"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="Kills / Match" />
+                            <TextBlock
+                                FontSize="22"
+                                FontWeight="Bold"
+                                Text="{Binding ViewModel.KillsPerMatch, StringFormat={}{0:F1}}" />
+                        </StackPanel>
+                    </ui:Card>
+
+                    <!--  Se tiver propriedades totais de first kills/deaths, troque os bindings abaixo  -->
+                    <ui:Card Margin="6">
+                        <StackPanel>
+                            <TextBlock
+                                FontSize="12"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="First Kills (total)" />
+                            <TextBlock
+                                FontSize="22"
+                                FontWeight="Bold"
+                                Text="{Binding ViewModel.FirstKillsTotal}" />
+                        </StackPanel>
+                    </ui:Card>
+
+                    <ui:Card Margin="6">
+                        <StackPanel>
+                            <TextBlock
+                                FontSize="12"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="First Deaths (total)" />
+                            <TextBlock
+                                FontSize="22"
+                                FontWeight="Bold"
+                                Text="{Binding ViewModel.FirstDeathsTotal}" />
+                        </StackPanel>
+                    </ui:Card>
+                </UniformGrid>
+
+                <!--  Controles  -->
+                <StackPanel Margin="0,0,0,12" Orientation="Horizontal">
+                    <ui:Button
+                        Margin="0,0,8,0"
+                        Command="{Binding ViewModel.AddRowCommand}"
+                        Content="+ Adicionar partida" />
+                    <ui:Button
+                        Appearance="Secondary"
+                        Command="{Binding ViewModel.ClearCommand}"
+                        Content="Limpar tudo" />
+                </StackPanel>
+
+                <!--  Tabela  -->
+                <ui:Card>
+                    <DataGrid
+                        MinHeight="260"
+                        Margin="0"
+                        AutoGenerateColumns="False"
+                        CanUserAddRows="False"
+                        GridLinesVisibility="None"
+                        HeadersVisibility="Column"
+                        ItemsSource="{Binding ViewModel.Matches}"
+                        RowHeaderWidth="0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Kills, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Kills" />
+                            <DataGridTextColumn Binding="{Binding Deaths, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Deaths" />
+                            <DataGridTextColumn Binding="{Binding Assists, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Assists" />
+                            <DataGridTextColumn Binding="{Binding Headshots, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Headshots" />
+                            <DataGridTextColumn Binding="{Binding Rounds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Rounds" />
+                            <DataGridTextColumn Binding="{Binding Damage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Dano causado" />
+                            <DataGridTextColumn Binding="{Binding DamageTaken, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Dano recebido" />
+                            <DataGridCheckBoxColumn Binding="{Binding Win, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Win?" />
+                            <DataGridTextColumn Binding="{Binding FirstKills, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="First Kills" />
+                            <DataGridTextColumn Binding="{Binding FirstDeaths, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="First Deaths" />
+                            <DataGridTextColumn Binding="{Binding FiveK, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="5K" />
+                            <DataGridTextColumn Binding="{Binding FlashAssists, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Flash Assists" />
+                            <DataGridTemplateColumn Width="80" Header="Remover">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ui:Button
+                                            Command="{Binding DataContext.ViewModel.RemoveRowCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                            CommandParameter="{Binding}"
+                                            Content="X" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ui:Card>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </Page>

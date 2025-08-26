@@ -25,6 +25,7 @@ namespace PlayerStatsTracker.Views.Windows
             SetPageService(navigationViewPageProvider);
 
             navigationService.SetNavigationControl(RootNavigation);
+            RootNavigation.IsPaneOpen = false;
         }
 
         #region INavigationWindow methods

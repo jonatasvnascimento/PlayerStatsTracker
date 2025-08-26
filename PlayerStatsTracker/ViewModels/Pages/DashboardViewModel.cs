@@ -7,6 +7,7 @@ namespace PlayerStatsTracker.ViewModels.Pages
     public partial class DashboardViewModel : ObservableObject
     {
         public ObservableCollection<MatchRow> Matches { get; } = new();
+        public ObservableCollection<User> Users { get; } = new();
 
         [ObservableProperty] private MatchRow? selectedMatch;
 
@@ -48,6 +49,9 @@ namespace PlayerStatsTracker.ViewModels.Pages
             // exemplos (pode remover)
             Matches.Add(new MatchRow { Kills = 20, Deaths = 10, Assists = 5, Headshots = 9, Rounds = 24, Damage = 1800, DamageTaken = 2100, Win = false, FirstKills = 2, FirstDeaths = 1 });
             Matches.Add(new MatchRow { Kills = 10, Deaths = 13, Assists = 6, Headshots = 4, Rounds = 26, Damage = 1500, DamageTaken = 2200, Win = false, FirstKills = 1, FirstDeaths = 2 });
+
+            Users.Add(new User { Id = 1, Username = "DataMatrix", UserCreated = "PC", UserModified = "PC", DateCreated = DateTime.Now, DateModified = DateTime.Now });
+            Users.Add(new User { Id = 2, Username = "|| Crash ||", UserCreated = "PC", UserModified = "PC", DateCreated = DateTime.Now, DateModified = DateTime.Now });
 
             HookCollection();
             Recalculate();
