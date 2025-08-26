@@ -20,7 +20,8 @@ namespace PlayerStatsTracker.ViewModels.Pages
         [ObservableProperty] private int totalHeadshots;
         [ObservableProperty] private int totalRounds;
         [ObservableProperty] private int totalDamage;
-
+        
+        // KPIs
         [ObservableProperty] private double kd;               // Kills / Deaths
         [ObservableProperty] private double kad;              // (Kills + Assists) / Deaths
         [ObservableProperty] private double headshotPercent;  // 0–100
@@ -29,6 +30,18 @@ namespace PlayerStatsTracker.ViewModels.Pages
         [ObservableProperty] private double damagePerRound;
         [ObservableProperty] private double firstKillsTotal;
         [ObservableProperty] private double firstDeathsTotal;
+
+        // Novo: Pontos e Rank
+        [ObservableProperty] private int points;
+        [ObservableProperty] private string rank = "Bronze";
+
+        // Pesos (ajuste à vontade)
+        private const int KillWeight = 100;
+        private const int AssistWeight = 35;
+        private const int HeadshotWeight = 20;
+        private const int WinBonus = 400;
+        private const int DeathPenalty = 60;
+        private const int DprWeight = 10; // multiplicador para DamagePerRound * Games
 
         public DashboardViewModel()
         {
@@ -83,6 +96,28 @@ namespace PlayerStatsTracker.ViewModels.Pages
             DamagePerRound = SafeDiv(TotalDamage, TotalRounds);
             FirstKillsTotal = Matches.Sum(m => m.FirstKills);
             FirstDeathsTotal = Matches.Sum(m => m.FirstDeaths);
+
+            // ---- Pontos ----
+            var rawPoints =
+                (TotalKills * KillWeight) +
+                (TotalAssists * AssistWeight) +
+                (TotalHeadshots * HeadshotWeight) +
+                (Wins * WinBonus) +
+                (int)Math.Round(DamagePerRound * Games * DprWeight) -
+                (TotalDeaths * DeathPenalty);
+
+            Points = Math.Max(0, rawPoints);
+            Rank = ClassifyRank(Points);
+        }
+
+        private static string ClassifyRank(int pts)
+        {
+            if (pts >= 30000) return "Pro";
+            if (pts >= 20000) return "Master";
+            if (pts >= 15000) return "Diamond";
+            if (pts >= 10000) return "Gold";
+            if (pts >= 5000) return "Silver";
+            return "Bronze";
         }
 
         // Commands
