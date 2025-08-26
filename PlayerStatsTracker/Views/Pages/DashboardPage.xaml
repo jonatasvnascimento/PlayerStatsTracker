@@ -20,17 +20,40 @@
         <StackPanel Margin="16" Orientation="Vertical">
 
             <!-- Header -->
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                <TextBlock Text="Game Stats Tracker"
-                           FontSize="22"
-                           FontWeight="Bold"
-                           Margin="0,0,8,0"/>
-                <ui:Badge Appearance="Primary"
+            <Grid Margin="0,0,0,12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <!-- título -->
+                    <ColumnDefinition Width="Auto"/>
+                    <!-- badge -->
+                    <ColumnDefinition Width="*"/>
+                    <!-- espaçador -->
+                    <ColumnDefinition Width="Auto"/>
+                    <!-- rank à direita -->
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
+                           Text="Game Stats Tracker"
+                           FontSize="22" FontWeight="Bold"/>
+
+                <ui:Badge Grid.Column="1"
+                          Margin="8,0,0,0"
+                          Appearance="Primary"
                           Content="Preencha as partidas abaixo"/>
-            </StackPanel>
+
+                <StackPanel Grid.Column="3">
+                    <!-- fica encostado à direita -->
+                    <TextBlock Text="Rank"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                               FontSize="12"/>
+                    <TextBlock Text="{Binding ViewModel.Rank}"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                               FontSize="12"/>
+                </StackPanel>
+            </Grid>
 
             <!-- KPIs principais -->
-            <UniformGrid Columns="5" Rows="1" Margin="0,0,0,12">
+            <UniformGrid Columns="6" Rows="1" Margin="0,0,0,12">
 
                 <!-- Novo: Points + Rank -->
                 <ui:Card Margin="6">
@@ -40,9 +63,18 @@
                                    FontSize="12"/>
                         <TextBlock Text="{Binding ViewModel.Points}"
                                    FontSize="26" FontWeight="Black"/>
-                        <TextBlock Text="{Binding ViewModel.Rank}"
+                    </StackPanel>
+                </ui:Card>
+
+                <ui:Card Margin="6">
+                    <StackPanel Grid.Column="3">
+                        <!-- fica encostado à direita -->
+                        <TextBlock Text="Rank"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                    FontSize="12"/>
+                        <TextBlock Text="{Binding ViewModel.Rank}"
+                                   FontSize="26"
+                                   FontWeight="Black"/>
                     </StackPanel>
                 </ui:Card>
 
