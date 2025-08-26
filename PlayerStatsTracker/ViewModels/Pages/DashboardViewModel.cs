@@ -27,6 +27,8 @@ namespace PlayerStatsTracker.ViewModels.Pages
         [ObservableProperty] private double winPercent;       // 0–100
         [ObservableProperty] private double killsPerMatch;
         [ObservableProperty] private double damagePerRound;
+        [ObservableProperty] private double firstKillsTotal;
+        [ObservableProperty] private double firstDeathsTotal;
 
         public DashboardViewModel()
         {
@@ -79,6 +81,8 @@ namespace PlayerStatsTracker.ViewModels.Pages
             WinPercent = SafeDiv(Wins, Matches.Count) * 100.0;
             KillsPerMatch = SafeDiv(TotalKills, Games);
             DamagePerRound = SafeDiv(TotalDamage, TotalRounds);
+            FirstKillsTotal = Matches.Sum(m => m.FirstKills);
+            FirstDeathsTotal = Matches.Sum(m => m.FirstDeaths);
         }
 
         // Commands
